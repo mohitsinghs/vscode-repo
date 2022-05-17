@@ -1,14 +1,32 @@
 {
   "name": "repo",
-  "displayName": "repo",
+  "displayName": "Repo",
   "description": "Switch between repositories with ease",
-  "version": "0.0.1",
-  "repository": "mohitsinghs/vscode-repo",
+  "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mohitsinghs/vscode-repo"
+  },
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.67.0"
   },
+  "publisher": "mohitsingh",
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "git",
+    "repository",
+    "project",
+    "folder",
+    "workspace",
+    "switch",
+    "manage"
+  ],
+  "extensionKind": [
+    "ui",
+    "workspace"
   ],
   "activationEvents": [
     "onView:repositories"
