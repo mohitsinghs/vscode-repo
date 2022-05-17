@@ -18,12 +18,16 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.window.showInformationMessage('Could not open the project!')
     }
   })
-  context.subscriptions.push(
-    vscode.window.registerTreeDataProvider(
-      'repositories',
-      new RepositoryProvider()
-    )
+  const repositoryProvider = new RepositoryProvider()
+  vscode.commands.registerCommand('_repo.refresh', () =>
+    repositoryProvider.refresh()
   )
+  const disposable = vscode.window.registerTreeDataProvider(
+    'repositories',
+    repositoryProvider
+  )
+
+  context.subscriptions.push(disposable)
 }
 
 // this method is called when your extension is deactivated

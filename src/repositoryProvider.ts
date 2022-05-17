@@ -2,6 +2,13 @@ import { execSync } from 'child_process'
 import * as vscode from 'vscode'
 
 export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
+  private _onDidChangeTreeData: vscode.EventEmitter<
+    Repository | undefined | null | void
+  > = new vscode.EventEmitter<Repository | undefined | null | void>()
+  readonly onDidChangeTreeData: vscode.Event<
+    Repository | undefined | null | void
+  > = this._onDidChangeTreeData.event
+
   constructor() {}
 
   getTreeItem(element: Repository): vscode.TreeItem {
@@ -25,6 +32,10 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
       ([name, path]) =>
         new Repository(name, path, vscode.TreeItemCollapsibleState.None)
     )
+  }
+
+  refresh() {
+    this._onDidChangeTreeData.fire()
   }
 }
 

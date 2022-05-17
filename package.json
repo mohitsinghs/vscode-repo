@@ -33,6 +33,22 @@
           "icon": "$(folder-library)"
         }
       ]
+    },
+    "commands": [
+      {
+        "command": "_repo.refresh",
+        "title": "Repositories: Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "_repo.refresh",
+          "when": "view == repositories",
+          "group": "navigation"
+        }
+      ]
     }
   },
   "scripts": {
