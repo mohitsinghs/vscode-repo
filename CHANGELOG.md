@@ -9,4 +9,5 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## 0.0.1
 
 - Initial release
-- Ability to switch between repositories
+- Switch between repositories
+- Refresh repository list
