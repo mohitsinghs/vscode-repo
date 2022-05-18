@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.1.1
+
+- Fix rendering of menu items in other views
+
 ## 0.1.0
 
 - Add tree view ( Linux and macOS only )
