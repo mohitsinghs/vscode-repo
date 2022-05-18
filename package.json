@@ -1,8 +1,8 @@
 {
   "name": "repo",
-  "displayName": "Repo",
+  "displayName": "Repositories",
   "description": "Switch between repositories with ease",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/mohitsinghs/vscode-repo"
@@ -57,6 +57,18 @@
         "command": "_repo.refresh",
         "title": "Repositories: Refresh",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "_repo.asTree",
+        "title": "Repositories: View as Tree",
+        "icon": "$(list-tree)",
+        "enablement": "!repositories.hasTree"
+      },
+      {
+        "command": "_repo.asList",
+        "title": "Repositories: View as List",
+        "icon": "$(list-flat)",
+        "enablement": "repositories.hasTree"
       }
     ],
     "menus": {
@@ -64,6 +76,16 @@
         {
           "command": "_repo.refresh",
           "when": "view == repositories",
+          "group": "navigation"
+        },
+        {
+          "command": "_repo.asTree",
+          "when": "isLinux || isMac && view == repositories",
+          "group": "navigation"
+        },
+        {
+          "command": "_repo.asList",
+          "when": "isLinux || isMac && view == repositories",
           "group": "navigation"
         }
       ]

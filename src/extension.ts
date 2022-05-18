@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { RepositoryProvider } from './repositoryProvider'
+import { RepositoryProvider, ViewMode } from './repositoryProvider'
 
 function buildUri(node: string | any): vscode.Uri {
   if (typeof node === 'string') {
@@ -18,10 +18,19 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.window.showInformationMessage('Could not open the project!')
     }
   })
+  vscode.commands.executeCommand('setContext', 'repositories.hasTree', false)
   const repositoryProvider = new RepositoryProvider()
   vscode.commands.registerCommand('_repo.refresh', () =>
     repositoryProvider.refresh()
   )
+  vscode.commands.registerCommand('_repo.asTree', () => {
+    vscode.commands.executeCommand('setContext', 'repositories.hasTree', true)
+    repositoryProvider.switchMode(ViewMode.tree)
+  })
+  vscode.commands.registerCommand('_repo.asList', () => {
+    vscode.commands.executeCommand('setContext', 'repositories.hasTree', false)
+    repositoryProvider.switchMode(ViewMode.list)
+  })
   const disposable = vscode.window.registerTreeDataProvider(
     'repositories',
     repositoryProvider
