@@ -75,17 +75,17 @@
       "view/title": [
         {
           "command": "_repo.refresh",
-          "when": "view == repositories",
+          "when": "view == 'repositories'",
           "group": "navigation"
         },
         {
           "command": "_repo.asTree",
-          "when": "isLinux || isMac && view == repositories",
+          "when": "view == 'repositories' && !isWindows",
           "group": "navigation"
         },
         {
           "command": "_repo.asList",
-          "when": "isLinux || isMac && view == repositories",
+          "when": "view == 'repositories' && !isWindows",
           "group": "navigation"
         }
       ]
