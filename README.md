@@ -1,13 +1,16 @@
-# repo
-
-Switch between repositories with ease.
+<h1 align='center'>Repositories</h1>
+<p align="center">
+  <b>Switch between repositories with ease</b><br/>
+  <sub>Access of all repositories from your home directory with speed of <a href="https://github.com/mohitsinghs/repo">repo</a> </sub>
+</p>
+<br />
 
 ## Features
 
-- Auto detect repos in your home directory.
-- View repos as tree or list.
+- Auto detect repositories.
+- View as tree or list.
 - Switch between repositories.
-- Respects your gitignore, so no duplicate or nested repositories.
+- Respects your gitignore.
 
 ## Requirements
 
