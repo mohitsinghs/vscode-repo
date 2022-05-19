@@ -3,7 +3,7 @@ on:
     types:
       - created
 
-name: Release Extension
+name: release
 jobs:
   deploy:
     runs-on: ubuntu-latest
