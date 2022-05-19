@@ -1,0 +1,37 @@
+on:
+  release:
+    types:
+      - created
+
+name: Release Extension
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ^14
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build release
+        run: npx vsce package
+
+      - name: Upload release
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./repo-${{ jq '.version' package.json }}.vsix
+          asset_name: repo-${{ jq '.version' package.json }}.vsix
+          asset_content_type: application/octet-stream
+
+      - name: Publish Extension
+        run: npx vsce publish -p $VSCE_TOKEN --yarn --noVerify
+        env:
+          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
