@@ -6,21 +6,27 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.1.2
+
+- Added new logo and badges
+- Added automated publishing with Actions
+- Migrated from webpack to esbuild
+
 ## 0.1.1
 
-- Fix rendering of menu items in other views
+- Fixed rendering of menu items in other views
 
 ## 0.1.0
 
-- Add tree view ( Linux and macOS only )
-- Use a more descriptive name
+- Added tree view ( Linux and macOS only )
+- Used a more descriptive name
 
 ## 0.0.2
 
-- Add icon and tags
+- Added icon and tags
 
 ## 0.0.1
 
 - Initial release
-- Switch between repositories
-- Refresh repository list
+- Add ability to switch between repositories
+- Add ability to refresh repository list
