@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.2.0
+
+- Platform specific packages and bundled binaries
+
 ## 0.1.2
 
 - Added new logo and badges
