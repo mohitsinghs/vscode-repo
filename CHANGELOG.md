@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.2.1
+
+- Add repositories.treeAsDefault config
+
 ## 0.2.0
 
 - Platform specific packages and bundled binaries
