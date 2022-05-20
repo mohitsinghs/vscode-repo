@@ -1,3 +1,4 @@
+.github
 .vscode/**
 .vscode-test/**
 node_modules/**
@@ -8,3 +9,5 @@ src/**
 **/.eslintrc.json
 **/*.map
 **/*.ts
+dist/**
+release.sh

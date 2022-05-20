@@ -1,7 +1,7 @@
 <h1 align='center'>Repositories</h1>
 <p align="center">
   <b>Switch between repositories with ease</b><br/>
-  <sub>Access of all repositories from your home directory with speed of <a href="https://github.com/mohitsinghs/repo">repo</a> </sub>
+  <sub>Fastest way to access your local repositories within VSCode</sub>
 </p>
 <p align='center'>
   <a href="https://github.com/mohitsinghs/vscode-repo/actions/workflows/release.yml">
@@ -25,8 +25,9 @@
 
 ## Requirements
 
-You'll need to install [repo](https://github.com/mohitsinghs/repo) to use this extension.
+Previously, installation of [repo](https://github.com/mohitsinghs/repo) was required to use this extension,
+but from v0.2.x onwards, the binary for supported platform is bundled with extension.
 
-## Known Issues
+## Limitations
 
-- Works with git repositories only for now
+- Works with locally cloned git repositories for now.

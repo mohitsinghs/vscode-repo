@@ -17,8 +17,11 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   > = this._onDidChangeTreeData.event
   _mode = ViewMode.list
   _tree: any = {}
+  _repoPath: string
 
-  constructor() {}
+  constructor(repoPath: string) {
+    this._repoPath = repoPath
+  }
 
   switchMode(mode: ViewMode) {
     this._mode = mode
@@ -106,7 +109,7 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   }
 
   private fetchRepositories(): Record<string, string> {
-    const repoData = execSync(`repo cmp -j`)
+    const repoData = execSync(`${this._repoPath} cmp -j`)
     const repos: Record<string, string> = JSON.parse(repoData.toString('utf-8'))
     return repos
   }

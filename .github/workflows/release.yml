@@ -6,19 +6,30 @@ on:
 name: release
 jobs:
   deploy:
+    name: Release Extension
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v1
+      - name: Install node 14.x
+        uses: actions/setup-node@v1
         with:
           node-version: ^14
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Build extensions
+        run: ./release.sh
+
+      - name: Upload Extensions
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/repo-*.vsix
+
       - name: Publish Extension
-        run: npx vsce publish -p $VSCE_TOKEN --yarn --noVerify
+        run: npx vsce publish -p $VSCE_TOKEN -i ./dist/repo-*.vsix --yarn --noVerify
         env:
           VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode'
+import { getBinaryPath } from './executor'
 import { RepositoryProvider, ViewMode } from './repositoryProvider'
 
 function buildUri(node: string | any): vscode.Uri {
@@ -9,7 +10,7 @@ function buildUri(node: string | any): vscode.Uri {
   }
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand('_repo.open', async (node: string | any) => {
     const uri = buildUri(node)
     try {
@@ -19,7 +20,11 @@ export function activate(context: vscode.ExtensionContext) {
     }
   })
   vscode.commands.executeCommand('setContext', 'repositories.hasTree', false)
-  const repositoryProvider = new RepositoryProvider()
+
+  const repoPath = await getBinaryPath(context)
+  if (repoPath === '') return
+  const repositoryProvider = new RepositoryProvider(repoPath)
+
   vscode.commands.registerCommand('_repo.refresh', () =>
     repositoryProvider.refresh()
   )
