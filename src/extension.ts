@@ -19,11 +19,24 @@ export async function activate(context: vscode.ExtensionContext) {
       vscode.window.showInformationMessage('Could not open the project!')
     }
   })
-  vscode.commands.executeCommand('setContext', 'repositories.hasTree', false)
+
+  let treeAsDefault = vscode.workspace
+    .getConfiguration('repositories')
+    .get('treeAsDefault')
+
+  vscode.commands.executeCommand(
+    'setContext',
+    'repositories.hasTree',
+    treeAsDefault
+  )
 
   const repoPath = await getBinaryPath(context)
   if (repoPath === '') return
-  const repositoryProvider = new RepositoryProvider(repoPath)
+
+  const repositoryProvider = new RepositoryProvider(
+    repoPath,
+    treeAsDefault ? ViewMode.tree : ViewMode.list
+  )
 
   vscode.commands.registerCommand('_repo.refresh', () =>
     repositoryProvider.refresh()

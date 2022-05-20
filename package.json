@@ -35,6 +35,16 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Repositories",
+      "properties": {
+        "repositories.treeAsDefault": {
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, default view will be tree view."
+        }
+      }
+    },
     "views": {
       "repo-explorer": [
         {

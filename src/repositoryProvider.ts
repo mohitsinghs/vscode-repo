@@ -19,8 +19,9 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   _tree: any = {}
   _repoPath: string
 
-  constructor(repoPath: string) {
+  constructor(repoPath: string, mode: ViewMode) {
     this._repoPath = repoPath
+    this._mode = mode
   }
 
   switchMode(mode: ViewMode) {
