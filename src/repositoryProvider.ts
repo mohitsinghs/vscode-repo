@@ -45,16 +45,22 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
     } else {
       if (!element) {
         this.populateTree()
-        return Promise.resolve(
-          Object.keys(this._tree).map((k: string) => {
-            return new Repository(
-              k,
-              k,
-              vscode.TreeItemCollapsibleState.Expanded,
-              [k]
+        let values: Repository[] = []
+        Object.keys(this._tree).forEach((k: string) => {
+          if (k !== '_core') {
+            values.push(
+              new Repository(k, k, vscode.TreeItemCollapsibleState.Expanded, [
+                k,
+              ])
             )
-          })
-        )
+          }
+        })
+        if (Array.isArray(this._tree._core) && this._tree._core.length) {
+          values.push(
+            ...this._tree._core.map((v: any) => this.repoFromValue([], v))
+          )
+        }
+        return Promise.resolve(values)
       } else {
         let ref = this._tree
         let lookup = element?.lookup
@@ -107,6 +113,7 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
     const commonPath = unixCommonPath(pathMatrix)
     const slicedMatrix = pathMatrix.map((p) => p.slice(commonPath?.length))
     this._tree = buildTree(commonPath, slicedMatrix)
+    console.log({ tree: this._tree })
   }
 
   private fetchRepositories(): Record<string, string> {

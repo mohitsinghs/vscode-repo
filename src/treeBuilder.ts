@@ -56,6 +56,12 @@ export function buildTree(
         _ref[parent].push({ label: base, location: _original })
       }
     }
+    if (n.length === 1) {
+      if (!Array.isArray(_ref._core)) {
+        _ref._core = []
+      }
+      _ref._core.push({ label: n[0], location: _original })
+    }
     return p
   }, {})
 }
