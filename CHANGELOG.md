@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.2.2
+
+- Fixed missing repos from root level in tree view
+
 ## 0.2.1
 
 - Add repositories.treeAsDefault config

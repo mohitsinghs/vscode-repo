@@ -23,6 +23,10 @@
 - Switch between repositories.
 - Respects your gitignore.
 
+## Demo
+
+![vscode-repo](https://user-images.githubusercontent.com/4941333/169684717-ca144dd5-8f8f-4dd5-8a5c-33949aacc296.gif)
+
 ## Requirements
 
 Previously, installation of [repo](https://github.com/mohitsinghs/repo) was required to use this extension,
