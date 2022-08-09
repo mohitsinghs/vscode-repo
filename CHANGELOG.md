@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.3.1
+
+- Fixed panic on nested directies in some cases.
+
 ## 0.3.0
 
 - Enabled tree view on windows.
