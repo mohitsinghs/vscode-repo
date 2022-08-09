@@ -27,11 +27,6 @@
 
 ![vscode-repo](https://user-images.githubusercontent.com/4941333/169684717-ca144dd5-8f8f-4dd5-8a5c-33949aacc296.gif)
 
-## Requirements
-
-Previously, installation of [repo](https://github.com/mohitsinghs/repo) was required to use this extension,
-but from v0.2.x onwards, the binary for supported platform is bundled with extension.
-
 ## Limitations
 
-- Works with locally cloned git repositories for now.
+- Does not work properly with WSL. See #2 and #4
