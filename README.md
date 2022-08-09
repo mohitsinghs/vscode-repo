@@ -29,4 +29,4 @@
 
 ## Limitations
 
-- Does not work properly with WSL. See #2 and #4
+- Does not work properly with WSL. See mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4
