@@ -92,12 +92,12 @@
         },
         {
           "command": "_repo.asTree",
-          "when": "view == 'repositories' && !isWindows",
+          "when": "view == 'repositories'",
           "group": "navigation"
         },
         {
           "command": "_repo.asList",
-          "when": "view == 'repositories' && !isWindows",
+          "when": "view == 'repositories'",
           "group": "navigation"
         }
       ]
