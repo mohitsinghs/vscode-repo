@@ -1,5 +1,5 @@
-import { execSync } from 'child_process'
 import * as vscode from 'vscode'
+import { RepositoryStore } from './store'
 
 export enum ViewMode {
   tree,
@@ -14,11 +14,10 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
     Repository | undefined | null | void
   > = this._onDidChangeTreeData.event
   _mode = ViewMode.list
-  _tree: any = {}
-  _repoPath: string
+  _store: RepositoryStore
 
-  constructor(repoPath: string, mode: ViewMode) {
-    this._repoPath = repoPath
+  constructor(store: RepositoryStore, mode: ViewMode) {
+    this._store = store
     this._mode = mode
   }
 
@@ -42,9 +41,9 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
       }
     } else {
       if (!element) {
-        this._tree = this.fetchRepositories(ViewMode.tree)
+        this._store.updateTree()
         let values: Repository[] = []
-        Object.keys(this._tree).forEach((k: string) => {
+        Object.keys(this._store.tree).forEach((k: string) => {
           if (k !== '_children') {
             values.push(
               new Repository(k, k, vscode.TreeItemCollapsibleState.Expanded, [
@@ -54,16 +53,18 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
           }
         })
         if (
-          Array.isArray(this._tree._children) &&
-          this._tree._children.length
+          Array.isArray(this._store.tree._children) &&
+          this._store.tree._children.length
         ) {
           values.push(
-            ...this._tree._children.map((v: any) => this.repoFromValue([], v))
+            ...this._store.tree._children.map((v: any) =>
+              this.repoFromValue([], v)
+            )
           )
         }
         return Promise.resolve(values)
       } else {
-        let ref = this._tree
+        let ref = this._store.tree
         let lookup = element?.lookup
         if (lookup?.length) {
           let i = 0
@@ -106,17 +107,9 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
     )
   }
 
-  private fetchRepositories(mode: ViewMode): Record<string, any> {
-    const repoData = execSync(
-      mode === ViewMode.list
-        ? `${this._repoPath} cmp -j`
-        : `${this._repoPath} cmp -t`
-    )
-    return JSON.parse(repoData.toString('utf-8'))
-  }
-
   private getRepositories(): Repository[] {
-    const repos = this.fetchRepositories(ViewMode.list)
+    this._store.updateList()
+    const repos = this._store.list
     return Object.entries(repos).map(
       ([name, path]) =>
         new Repository(name, path, vscode.TreeItemCollapsibleState.None)

@@ -78,3 +78,21 @@ export function getConfigPath(): string {
     return ''
   }
 }
+
+export function getCurrentPath() {
+  const workspace = vscode.workspace.workspaceFile
+    ? vscode.workspace.workspaceFile
+    : vscode.workspace.workspaceFolders
+    ? vscode.workspace.workspaceFolders[0].uri
+    : undefined
+
+  return workspace ? workspace.fsPath : undefined
+}
+
+export function buildUri(node: string | any): vscode.Uri {
+  if (typeof node === 'string') {
+    return vscode.Uri.file(node)
+  } else {
+    return vscode.Uri.file(node.command.arguments[0])
+  }
+}

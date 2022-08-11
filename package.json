@@ -31,7 +31,13 @@
     "workspace"
   ],
   "activationEvents": [
-    "onView:repositories"
+    "onStartupFinished",
+    "onView:repositories",
+    "onCommand:_repo.refresh",
+    "onCommand:_repo.asList",
+    "onCommand:_repo.asTree",
+    "onCommand:_repo.editConfig",
+    "onCommand:_repo.listRepos"
   ],
   "main": "./out/extension.js",
   "capabilities": {
@@ -48,6 +54,11 @@
           "type": "boolean",
           "default": false,
           "description": "If enabled, default view will be tree view."
+        },
+        "repositories.showInStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "If enabled, current project is shown in status bar."
         }
       }
     },
@@ -92,6 +103,11 @@
         "command": "_repo.editConfig",
         "title": "Repositories: Edit configuration",
         "icon": "$(settings-gear)"
+      },
+      {
+        "command": "_repo.listRepos",
+        "title": "Repositories: List Repos",
+        "icon": "$(list-flat)"
       }
     ],
     "menus": {
