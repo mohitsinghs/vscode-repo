@@ -34,6 +34,12 @@
     "onView:repositories"
   ],
   "main": "./out/extension.js",
+  "capabilities": {
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Repositories are not available in virtual workspaces"
+    }
+  },
   "contributes": {
     "configuration": {
       "title": "Repositories",
@@ -81,6 +87,11 @@
         "title": "Repositories: View as List",
         "icon": "$(list-flat)",
         "enablement": "repositories.hasTree"
+      },
+      {
+        "command": "_repo.editConfig",
+        "title": "Repositories: Edit configuration",
+        "icon": "$(settings-gear)"
       }
     ],
     "menus": {
@@ -97,6 +108,11 @@
         },
         {
           "command": "_repo.asList",
+          "when": "view == 'repositories'",
+          "group": "navigation"
+        },
+        {
+          "command": "_repo.editConfig",
           "when": "view == 'repositories'",
           "group": "navigation"
         }

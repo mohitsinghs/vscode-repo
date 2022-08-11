@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
-import { getBinaryPath } from './executor'
 import { RepositoryProvider, ViewMode } from './repositoryProvider'
+import { getBinaryPath, getConfigPath } from './utils'
 
 function buildUri(node: string | any): vscode.Uri {
   if (typeof node === 'string') {
@@ -22,7 +22,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   let treeAsDefault = vscode.workspace
     .getConfiguration('repositories')
-    .get('treeAsDefault')
+    .get('treeAsDefault') as boolean
 
   vscode.commands.executeCommand(
     'setContext',
@@ -48,6 +48,16 @@ export async function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand('_repo.asList', () => {
     vscode.commands.executeCommand('setContext', 'repositories.hasTree', false)
     repositoryProvider.switchMode(ViewMode.list)
+  })
+  vscode.commands.registerCommand('_repo.editConfig', () => {
+    const configPath = getConfigPath()
+    if (configPath) {
+      vscode.workspace
+        .openTextDocument(vscode.Uri.file(configPath))
+        .then((cfg) => {
+          vscode.window.showTextDocument(cfg, vscode.ViewColumn.Active, false)
+        })
+    }
   })
   const disposable = vscode.window.registerTreeDataProvider(
     'repositories',
