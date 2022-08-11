@@ -20,6 +20,7 @@
 
 - Auto detect repositories.
 - View as tree or list.
+- Current repo in status bar.
 - Switch between repositories.
 - Respects your gitignore.
 

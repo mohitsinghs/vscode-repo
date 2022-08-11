@@ -59,6 +59,11 @@
           "type": "boolean",
           "default": true,
           "description": "If enabled, current project is shown in status bar."
+        },
+        "repositories.preferBundled": {
+          "type": "boolean",
+          "default": true,
+          "description": "If enabled, bundledBinary will be preferred otherwise binary from the PATH will be used."
         }
       }
     },

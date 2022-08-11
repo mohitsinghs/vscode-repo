@@ -44,8 +44,17 @@ export async function getBinaryPath(
     `${executableName}${isWindows() ? '.exe' : ''}`
   )
 
-  if (await isInPath(executableName)) return executableName
-  if (await fileExits(bundled)) return bundled.fsPath
+  if (
+    vscode.workspace
+      .getConfiguration('repositories')
+      .get('preferBundled') as boolean
+  ) {
+    if (await fileExits(bundled)) return bundled.fsPath
+    if (await isInPath(executableName)) return executableName
+  } else {
+    if (await isInPath(executableName)) return executableName
+    if (await fileExits(bundled)) return bundled.fsPath
+  }
 
   vscode.window.showErrorMessage(
     `repo binary is required but not found.
