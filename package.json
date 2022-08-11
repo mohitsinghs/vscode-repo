@@ -63,7 +63,7 @@
         "repositories.preferBundled": {
           "type": "boolean",
           "default": true,
-          "description": "If enabled, bundledBinary will be preferred otherwise binary from the PATH will be used."
+          "description": "If enabled, bundled binary will be preferred otherwise binary from the PATH will be used."
         }
       }
     },
