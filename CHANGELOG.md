@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.4.0
+
+- Add quick pick list
+- Add current repository in status bar.
+- Add `repositories.preferBundled` and `repositories.showInStatusBar`.
+
 ## 0.3.1
 
 - Fixed panic on nested directies in some cases.
