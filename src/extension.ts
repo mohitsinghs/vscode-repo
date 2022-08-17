@@ -51,14 +51,11 @@ export async function activate(context: vscode.ExtensionContext) {
     repositoryProvider.switchMode(ViewMode.list)
   })
 
-  vscode.commands.registerCommand('_repo.editConfig', () => {
-    const configPath = getConfigPath()
+  vscode.commands.registerCommand('_repo.editConfig', async () => {
+    const configPath = await getConfigPath(repoPath)
     if (configPath) {
-      vscode.workspace
-        .openTextDocument(vscode.Uri.file(configPath))
-        .then((cfg) => {
-          vscode.window.showTextDocument(cfg, vscode.ViewColumn.Active, false)
-        })
+      const cfg = await vscode.workspace.openTextDocument(configPath)
+      vscode.window.showTextDocument(cfg, vscode.ViewColumn.Active, false)
     }
   })
 

@@ -1,3 +1,4 @@
+import { execSync } from 'child_process'
 import * as os from 'os'
 import * as path from 'path'
 import * as vscode from 'vscode'
@@ -64,28 +65,44 @@ Please ensure that it is [installed on your system](https://github.com/mohitsing
   return ''
 }
 
-export function getConfigPath(): string {
+export async function getConfigPath(
+  repoPath: string
+): Promise<vscode.Uri | undefined> {
   const home = os.homedir()
   const configFile = 'repo.yml'
+  let configPath
   if (isWindows()) {
-    return path.join(
+    configPath = path.join(
       process.env.APPDATA || path.join(home, 'AppData', 'Roaming'),
       configFile
     )
   } else if (isMac()) {
-    return path.join(home, 'Library', 'Application Support', configFile)
+    configPath = path.join(home, 'Library', 'Application Support', configFile)
   } else if (isLinux()) {
-    return path.join(
+    configPath = path.join(
       process.env.XDG_CONFIG_HOME || path.join(home, '.config'),
       configFile
     )
-  } else {
-    vscode.window.showWarningMessage(
-      `Your platform is unsupported, Please [raise an issue](https://github.com/mohitsinghs/vscode-repo/issues/new).`,
-      'Got it'
-    )
-    return ''
   }
+
+  if (configPath) {
+    let cfgUri = vscode.Uri.file(configPath)
+    if (!(await fileExits(cfgUri))) {
+      try {
+        execSync(`${repoPath} init`)
+      } catch (error) {
+        vscode.window.showErrorMessage('Failed to generate config')
+        console.error('failed to generate config', error)
+      }
+    }
+    return cfgUri
+  }
+
+  vscode.window.showWarningMessage(
+    `Your platform is unsupported, Please [raise an issue](https://github.com/mohitsinghs/vscode-repo/issues/new).`,
+    'Got it'
+  )
+  return
 }
 
 export function getCurrentPath() {

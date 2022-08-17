@@ -1,4 +1,5 @@
 import { execSync } from 'child_process'
+import * as vscode from 'vscode'
 
 export class RepositoryStore {
   private _repoPath: string
@@ -10,15 +11,27 @@ export class RepositoryStore {
   }
 
   updateList() {
-    const repoData = execSync(`${this._repoPath} cmp -j`)
-    this.list = JSON.parse(repoData.toString('utf-8'))
-    return this.list
+    try {
+      const repoData = execSync(`${this._repoPath} cmp -j`)
+      this.list = JSON.parse(repoData.toString('utf-8'))
+      return this.list
+    } catch (error) {
+      vscode.window.showErrorMessage('No repositories detected')
+      console.error('failed to retrieve repositories', error)
+      return []
+    }
   }
 
   updateTree() {
-    const repoData = execSync(`${this._repoPath} cmp -t`)
-    this.tree = JSON.parse(repoData.toString('utf-8'))
-    return this.tree
+    try {
+      const repoData = execSync(`${this._repoPath} cmp -t`)
+      this.tree = JSON.parse(repoData.toString('utf-8'))
+      return this.tree
+    } catch (error) {
+      vscode.window.showErrorMessage('No repositories detected')
+      console.error('failed to retrieve repositories', error)
+      return {}
+    }
   }
 
   hasListEmpty(): boolean {
