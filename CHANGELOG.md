@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.4.1
+
+- Fixed error when opening config for first time.
+- Fixed missing repositories due to early exit in traversal.
+- Fixed invisible single repository.
+
 ## 0.4.0
 
 - Add quick pick list
