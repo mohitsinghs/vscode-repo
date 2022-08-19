@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.4.2
+
+- On macOS, `/Library` and `/Applications` are ignored now as they were slowing down the scan and are unlikely to contain any repositories. In future, this behavior will be configurable and more such directories will be ignored.
+
 ## 0.4.1
 
 - Fixed error when opening config for first time.
@@ -20,7 +24,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 0.3.1
 
-- Fixed panic on nested directies in some cases.
+- Fixed panic on nested directories in some cases.
 
 ## 0.3.0
 
