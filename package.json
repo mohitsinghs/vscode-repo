@@ -89,33 +89,61 @@
     "commands": [
       {
         "command": "_repo.refresh",
-        "title": "Repositories: Refresh",
+        "title": "Refresh",
+        "category": "Repositories",
         "icon": "$(refresh)"
       },
       {
         "command": "_repo.asTree",
-        "title": "Repositories: View as Tree",
+        "title": "View as Tree",
+        "category": "Repositories",
         "icon": "$(list-tree)",
         "enablement": "!repositories.hasTree"
       },
       {
         "command": "_repo.asList",
-        "title": "Repositories: View as List",
+        "title": "View as List",
+        "category": "Repositories",
         "icon": "$(list-flat)",
         "enablement": "repositories.hasTree"
       },
       {
         "command": "_repo.editConfig",
-        "title": "Repositories: Edit configuration",
+        "title": "Edit configuration",
+        "category": "Repositories",
         "icon": "$(settings-gear)"
       },
       {
         "command": "_repo.listRepos",
-        "title": "Repositories: List Repos",
+        "title": "List Repos",
+        "category": "Repositories",
         "icon": "$(list-flat)"
+      },
+      {
+        "command": "_repo.openInNewWindow",
+        "title": "Repositories: Open in New Window",
+        "icon": "$(multiple-windows)"
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "_repo.openInNewWindow",
+          "when": "false"
+        },
+        {
+          "command": "_repo.refresh",
+          "when": "false"
+        },
+        {
+          "command": "_repo.asTree",
+          "when": "false"
+        },
+        {
+          "command": "_repo.asList",
+          "when": "false"
+        }
+      ],
       "view/title": [
         {
           "command": "_repo.refresh",
@@ -136,6 +164,13 @@
           "command": "_repo.editConfig",
           "when": "view == 'repositories'",
           "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "_repo.openInNewWindow",
+          "when": "view == 'repositories' && viewItem == 'repository'",
+          "group": "inline"
         }
       ]
     }
