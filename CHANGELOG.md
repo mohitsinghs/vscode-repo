@@ -6,6 +6,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.5.0
+
+- Add context menu to open in new window.
+- Removed internal commands used in UI from command palette.
+
 ## 0.4.3
 
 - Fixed wrong os selector in binary for macOS.
