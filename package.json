@@ -115,7 +115,7 @@
       },
       {
         "command": "_repo.openInNewWindow",
-        "title": "Repositories: Open in New Window",
+        "title": "Open in New Window",
         "icon": "$(multiple-windows)"
       }
     ],
