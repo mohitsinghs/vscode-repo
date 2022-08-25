@@ -121,11 +121,11 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   }
 }
 
-class Repository extends vscode.TreeItem {
+export class Repository extends vscode.TreeItem {
   public lookup: string[] | undefined
   constructor(
     public readonly label: string,
-    private location: string,
+    public readonly location: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     lookup?: string[]
   ) {
@@ -142,4 +142,5 @@ class Repository extends vscode.TreeItem {
         command: '_repo.open',
         arguments: [this.location],
       }
+  contextValue = 'repository'
 }

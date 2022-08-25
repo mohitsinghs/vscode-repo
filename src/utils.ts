@@ -122,3 +122,15 @@ export function buildUri(node: string | any): vscode.Uri {
     return vscode.Uri.file(node.command.arguments[0])
   }
 }
+
+export async function openFolder(
+  node: string | any,
+  newWindow: boolean = false
+) {
+  const uri = buildUri(node)
+  try {
+    await vscode.commands.executeCommand('vscode.openFolder', uri, newWindow)
+  } catch (e) {
+    vscode.window.showInformationMessage('Could not open the project!')
+  }
+}
