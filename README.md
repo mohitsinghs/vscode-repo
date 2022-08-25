@@ -30,25 +30,14 @@
 
 ## Platform Support
 
-While the extension is available on following platforms, not all of these are tested. If yours is one of those, you may want to consider [Project Manager](https://github.com/alefragnani/vscode-project-manager) instead. If you really need speed and features of this extension, either wait for it to be tested or help testing/fixing it.
+While the extension is available on all platforms, not all of these are tested thoroughly. If you are facing any problems on your platform, feel free to raise an issue with relevant info.
 
-| Platform      | Available | Tested |
-| ------------- | :-------: | :----: |
-| Linux x64     |    ✅     |   ✅   |
-| Linux arm64   |    ✅     |   ✅   |
-| Windows x64   |    ✅     |   ✅   |
-| Windows arm64 |    ✅     |   ❌   |
-| Windows WSL\* |    ✅     |   ❌   |
-| macOS x64     |    ✅     |   ❌   |
-| macOS arm64   |    ✅     |   ❌   |
+If you want a different approach with more features, you may consider [Project Manager](https://github.com/alefragnani/vscode-project-manager) instead which is excellent.
 
-- Requires, [repo](https://github.com/mohitsinghs/repo) to be installed and does not work properly with WSL if PATH is not inherited correctly. See mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4. Set `repositories.useBundled` to false to always use binary from PATH.
+For WSL, [repo](https://github.com/mohitsinghs/repo) need to be installed in WSL and does not work properly if PATH is not inherited correctly. See mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4. Set `repositories.useBundled` to false to always use binary from PATH.
 
 ## Commands
 
-- `Repositories: Refresh` - Re-scans filesystem and refreshes list or tree of repositories in the sidebar.
-- `Repositories: View as Tree` - Switches to tree view for the sidebar.
-- `Repositories: View as List` - Switches to list view for the sidebar.
 - `Repositories: Edit configuration` - Opens configuration for the repo and allows controlling root paths and scan depth.
 - `Repositories: List Repos` - Opens a quick pick list of repositories to switch.
 
