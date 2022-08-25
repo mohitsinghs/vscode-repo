@@ -33,9 +33,6 @@
   "activationEvents": [
     "onStartupFinished",
     "onView:repositories",
-    "onCommand:_repo.refresh",
-    "onCommand:_repo.asList",
-    "onCommand:_repo.asTree",
     "onCommand:_repo.editConfig",
     "onCommand:_repo.listRepos"
   ],
@@ -90,20 +87,17 @@
       {
         "command": "_repo.refresh",
         "title": "Refresh",
-        "category": "Repositories",
         "icon": "$(refresh)"
       },
       {
         "command": "_repo.asTree",
         "title": "View as Tree",
-        "category": "Repositories",
         "icon": "$(list-tree)",
         "enablement": "!repositories.hasTree"
       },
       {
         "command": "_repo.asList",
         "title": "View as List",
-        "category": "Repositories",
         "icon": "$(list-flat)",
         "enablement": "repositories.hasTree"
       },
