@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.5.1
+
+- Updated section about OS support
+- Removed redundant prefix from action button tooltip
+- Fixed wrong setting name in README
+
 ## 0.5.0
 
 - Add context menu to open in new window.
