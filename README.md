@@ -34,7 +34,7 @@ While the extension is available on all platforms, not all of these are tested t
 
 If you want a different approach with more features, you may consider [Project Manager](https://github.com/alefragnani/vscode-project-manager) instead which is excellent.
 
-For WSL, [repo](https://github.com/mohitsinghs/repo) need to be installed in WSL and does not work properly if PATH is not inherited correctly. See mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4. Set `repositories.useBundled` to false to always use binary from PATH.
+For WSL, [repo](https://github.com/mohitsinghs/repo) need to be installed in WSL and does not work properly if PATH is not inherited correctly. See mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4. Set `repositories.preferBundled` to false to always use binary from PATH.
 
 ## Commands
 
