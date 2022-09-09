@@ -142,5 +142,5 @@ export class Repository extends vscode.TreeItem {
         command: '_repo.open',
         arguments: [this.location],
       }
-  contextValue = 'repository'
+  contextValue = this.isFolder ? 'folder' : 'repository'
 }

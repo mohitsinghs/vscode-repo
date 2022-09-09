@@ -6,6 +6,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- Fixed unnecessary context menu for folders
+
 ## 0.5.1
 
 - Updated section about OS support
