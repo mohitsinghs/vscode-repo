@@ -6,6 +6,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.6.0
+
+- Switched to Smith-Waterman for fuzzy matching
 - Fixed unnecessary context menu for folders
 
 ## 0.5.1
