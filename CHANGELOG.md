@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.7.0
+
+- Show one of tree and list action at a time
+
 ## 0.6.0
 
 - Switched to Smith-Waterman for fuzzy matching

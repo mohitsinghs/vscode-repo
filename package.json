@@ -2,7 +2,7 @@
   "name": "repo",
   "displayName": "Repositories",
   "description": "Switch between repositories with ease",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "author": "Mohit Singh <mohit@mohitsingh.in>",
   "license": "MIT",
   "repository": {
