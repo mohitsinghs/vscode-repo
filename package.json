@@ -92,14 +92,12 @@
       {
         "command": "_repo.asTree",
         "title": "View as Tree",
-        "icon": "$(list-tree)",
-        "enablement": "!repositories.hasTree"
+        "icon": "$(list-tree)"
       },
       {
         "command": "_repo.asList",
         "title": "View as List",
-        "icon": "$(list-flat)",
-        "enablement": "repositories.hasTree"
+        "icon": "$(list-flat)"
       },
       {
         "command": "_repo.editConfig",
@@ -146,12 +144,12 @@
         },
         {
           "command": "_repo.asTree",
-          "when": "view == 'repositories'",
+          "when": "view == 'repositories' && !repositories.hasTree",
           "group": "navigation"
         },
         {
           "command": "_repo.asList",
-          "when": "view == 'repositories'",
+          "when": "view == 'repositories' && repositories.hasTree",
           "group": "navigation"
         },
         {
