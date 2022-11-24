@@ -6,7 +6,7 @@ class Repository implements vscode.QuickPickItem {
   description: string
 
   constructor(label: string, location: string) {
-    this.label = label
+    this.label = `$(repo) ${label}`
     this.description = location
   }
 }
