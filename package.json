@@ -52,6 +52,11 @@
           "default": false,
           "description": "If enabled, default view will be tree view."
         },
+        "repositories.sortByName": {
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, tree view will be sorted by repository names."
+        },
         "repositories.showInStatusBar": {
           "type": "boolean",
           "default": true,

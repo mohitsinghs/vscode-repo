@@ -6,6 +6,11 @@ export enum ViewMode {
   list,
 }
 
+export interface RepositoryConfig {
+  mode: ViewMode
+  sort: boolean
+}
+
 export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   private _onDidChangeTreeData: vscode.EventEmitter<
     Repository | undefined | null | void
@@ -13,16 +18,16 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   readonly onDidChangeTreeData: vscode.Event<
     Repository | undefined | null | void
   > = this._onDidChangeTreeData.event
-  _mode = ViewMode.list
+  _config: RepositoryConfig
   _store: RepositoryStore
 
-  constructor(store: RepositoryStore, mode: ViewMode) {
+  constructor(store: RepositoryStore, config: RepositoryConfig) {
     this._store = store
-    this._mode = mode
+    this._config = config
   }
 
   switchMode(mode: ViewMode) {
-    this._mode = mode
+    this._config.mode = mode
     this.refresh()
   }
 
@@ -31,7 +36,7 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   }
 
   getChildren(element?: Repository): Thenable<Repository[]> {
-    if (this._mode === ViewMode.list) {
+    if (this._config.mode === ViewMode.list) {
       const repos = this.getRepositories()
       if (repos.length) {
         return Promise.resolve(repos)
@@ -40,9 +45,9 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
         return Promise.resolve([])
       }
     } else {
+      let values: Repository[] = []
       if (!element) {
         this._store.updateTree()
-        let values: Repository[] = []
         Object.keys(this._store.tree).forEach((k: string) => {
           if (k !== '_children') {
             values.push(
@@ -62,7 +67,7 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
             )
           )
         }
-        return Promise.resolve(values)
+        values.sort((a, b) => a.label.localeCompare(b.label))
       } else {
         let ref = this._store.tree
         let lookup = element?.lookup
@@ -74,9 +79,8 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
           }
         }
         if (Array.isArray(ref)) {
-          return Promise.resolve(ref.map((v) => this.repoFromValue(lookup, v)))
+          values = ref.map((v) => this.repoFromValue(lookup, v))
         } else {
-          let values: Repository[] = []
           if (Array.isArray(ref._children) && ref._children.length) {
             values.push(
               ...ref._children.map((v: any) => this.repoFromValue(lookup, v))
@@ -92,16 +96,19 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
               )
             }
           })
-          return Promise.resolve(values)
         }
       }
+      if (this._config.sort) {
+        values.sort((a, b) => a.label.localeCompare(b.label))
+      }
+      return Promise.resolve(values)
     }
   }
 
   private repoFromValue(lookup: string[] | undefined, v: any): Repository {
     return new Repository(
-      v?.label,
-      v?.location,
+      v.label,
+      v.location,
       vscode.TreeItemCollapsibleState.None,
       [...(lookup || [])]
     )

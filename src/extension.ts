@@ -1,6 +1,11 @@
 import * as vscode from 'vscode'
 import { RepositoryPicker } from './quickpick'
-import { Repository, RepositoryProvider, ViewMode } from './repositories'
+import {
+  Repository,
+  RepositoryConfig,
+  RepositoryProvider,
+  ViewMode,
+} from './repositories'
 import { showRepositoryStatus } from './statusbar'
 import { RepositoryStore } from './store'
 import { getBinaryPath, getConfigPath, openFolder } from './utils'
@@ -14,6 +19,10 @@ export async function activate(context: vscode.ExtensionContext) {
     .getConfiguration('repositories')
     .get('treeAsDefault') as boolean
 
+  let sortByName = vscode.workspace
+    .getConfiguration('repositories')
+    .get('sortByName') as boolean
+
   vscode.commands.executeCommand(
     'setContext',
     'repositories.hasTree',
@@ -24,13 +33,22 @@ export async function activate(context: vscode.ExtensionContext) {
   if (repoPath === '') return
 
   const store = new RepositoryStore(repoPath)
-
-  const repositoryProvider = new RepositoryProvider(
-    store,
-    treeAsDefault ? ViewMode.tree : ViewMode.list
-  )
+  const config: RepositoryConfig = {
+    mode: treeAsDefault ? ViewMode.tree : ViewMode.list,
+    sort: sortByName,
+  }
+  const repositoryProvider = new RepositoryProvider(store, config)
 
   const repositoryPicker = new RepositoryPicker(store)
+
+  vscode.workspace.onDidChangeConfiguration((e) => {
+    if (e.affectsConfiguration('repositories.sortByName')) {
+      config.sort = vscode.workspace
+        .getConfiguration('repositories')
+        .get('sortByName') as boolean
+      repositoryProvider.refresh()
+    }
+  })
 
   vscode.commands.registerCommand('_repo.refresh', () =>
     repositoryProvider.refresh()
