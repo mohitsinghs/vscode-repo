@@ -6,6 +6,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.7.1
+
+- If you are annoyed by random order of repository tree, you can now set `repository.sortByName` to `true` and they will not jump around anymore.
+- I've added a repository icon in the quicklist. It clarifies the quicklist purpose and looks nicer.
+
 ## 0.7.0
 
 - Show one of tree and list action at a time
