@@ -26,7 +26,7 @@
 
 ## Demo
 
-![vscode-repo](https://user-images.githubusercontent.com/4941333/169684717-ca144dd5-8f8f-4dd5-8a5c-33949aacc296.gif)
+![vscode-repo](https://user-images.githubusercontent.com/4941333/210471039-01677d25-3e61-4e25-84fc-9eae24357bcb.gif)
 
 ## Commands
 
