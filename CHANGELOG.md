@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.7.2
+
+- A fix in binary now allows you to use tilde in paths config.
+
 ## 0.7.1
 
 - If you are annoyed by random order of repository tree, you can now set `repository.sortByName` to `true` and they will not jump around anymore.
