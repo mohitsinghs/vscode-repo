@@ -11,7 +11,7 @@
   },
   "icon": "images/icon.png",
   "engines": {
-    "vscode": "^1.67.0"
+    "vscode": "^1.74.0"
   },
   "publisher": "mohitsingh",
   "categories": [
@@ -31,10 +31,7 @@
     "workspace"
   ],
   "activationEvents": [
-    "onStartupFinished",
-    "onView:repositories",
-    "onCommand:_repo.editConfig",
-    "onCommand:_repo.listRepos"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "capabilities": {
@@ -180,12 +177,12 @@
     "test": "eslint src --ext ts && tsc --noEmit"
   },
   "devDependencies": {
-    "@types/node": "14.x",
-    "@types/vscode": "^1.67.0",
-    "@typescript-eslint/eslint-plugin": "^5.21.0",
-    "@typescript-eslint/parser": "^5.21.0",
-    "esbuild": "^0.14.39",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
+    "esbuild": "^0.19.3",
     "eslint": "^8.14.0",
-    "typescript": "^4.6.4"
+    "typescript": "^5.2.2"
   }
 }
