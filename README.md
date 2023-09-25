@@ -18,11 +18,11 @@
 
 ## Features
 
-- Auto detect git repositories.
-- View as tree or list.
-- Current repo in status bar.
-- Switch between repositories.
-- Respects your gitignore.
+- **Switch Repositories**: Easily switch between repositories.
+- **Auto Repository Detection**: Automatically detect Git repositories.
+- **View Options**: Choose between tree or list view.
+- **Status Bar Integration**: See the current repository in the status bar.
+- **Gitignore Friendly**: Respects your `.gitignore` settings.
 
 ## Demo
 
@@ -35,27 +35,20 @@
 
 ## Settings
 
-- `repositories.treeAsDefault` - If enabled, default view will be tree view.
-- `repositories.sortByName` - If enabled, tree view will be sorted by repository names.
-- `repositories.showInStatusBar` - If enabled, current project is shown in status bar.
-- `repositories.preferBundled` - If enabled, bundled binary will be preferred otherwise binary from the PATH will be used and bundled binary will be used as fallback.
-
-Default value of settings is as follows -
-
-```json
-{
-  "repositories.treeAsDefault": false,
-  "repositories.sortByName": false,
-  "repositories.showInStatusBar": true,
-  "repositories.preferBundled": true
-}
-```
+| Setting                      | Description                                     | Default Value |
+| ---------------------------- | ----------------------------------------------- | ------------- |
+| repositories.treeAsDefault   | Use tree view as the default.                   | false         |
+| repositories.sortByName      | Sort tree view by repository names.             | false         |
+| repositories.showInStatusBar | Show the current project in the status bar.     | true          |
+| repositories.preferBundled   | Prefer bundled binary; fallback to PATH binary. | true          |
 
 ## Platform Support
 
-While the extension is available on all platforms, not all of these are tested thoroughly. If you are facing any problems on your platform, feel free to raise an issue with relevant info.
+The extension is available on all major platforms, including Windows, macOS, and Linux. However, while it's generally compatible with these platforms, please note that testing is more extensive on some platforms than others. If you encounter any issues on your specific platform, feel free to raise an issue with relevant details.
 
-> WSL support is limited because for WSL, [repo](https://github.com/mohitsinghs/repo) need to be installed in WSL and does not work properly if PATH is not inherited correctly. See mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4. Set `repositories.preferBundled` to false to always use binary from PATH.
+### WSL Support
+
+If you are using Windows Subsystem for Linux (WSL), please be aware that full support might be limited. In WSL, the [repo](https://github.com/mohitsinghs/repo) cli needs to be installed, and it may not work correctly if the PATH is not inherited. You can set `repositories.preferBundled` to `false` to always use the binary from the PATH instead of bundled one. For more information, refer to mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4.
 
 ## Inspirations
 
