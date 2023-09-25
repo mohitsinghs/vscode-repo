@@ -45,63 +45,11 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
         return Promise.resolve([])
       }
     } else {
-      let values: Repository[] = []
-      if (!element) {
-        this._store.updateTree()
-        Object.keys(this._store.tree).forEach((k: string) => {
-          if (k !== '_children') {
-            values.push(
-              new Repository(k, k, vscode.TreeItemCollapsibleState.Expanded, [
-                k,
-              ])
-            )
-          }
-        })
-        if (
-          Array.isArray(this._store.tree._children) &&
-          this._store.tree._children.length
-        ) {
-          values.push(
-            ...this._store.tree._children.map((v: any) =>
-              this.repoFromValue([], v)
-            )
-          )
-        }
-        values.sort((a, b) => a.label.localeCompare(b.label))
-      } else {
-        let ref = this._store.tree
-        let lookup = element?.lookup
-        if (lookup?.length) {
-          let i = 0
-          while (i < lookup.length) {
-            ref = ref[lookup[i]]
-            i++
-          }
-        }
-        if (Array.isArray(ref)) {
-          values = ref.map((v) => this.repoFromValue(lookup, v))
-        } else {
-          if (Array.isArray(ref._children) && ref._children.length) {
-            values.push(
-              ...ref._children.map((v: any) => this.repoFromValue(lookup, v))
-            )
-          }
-          Object.keys(ref).forEach((k: string) => {
-            if (k !== '_children') {
-              values.push(
-                new Repository(k, k, vscode.TreeItemCollapsibleState.Expanded, [
-                  ...(lookup || []),
-                  k,
-                ])
-              )
-            }
-          })
-        }
-      }
+      let repos: Repository[] = this.getReposTree(element)
       if (this._config.sort) {
-        values.sort((a, b) => a.label.localeCompare(b.label))
+        repos.sort((a, b) => a.label.localeCompare(b.label))
       }
-      return Promise.resolve(values)
+      return Promise.resolve(repos)
     }
   }
 
@@ -112,6 +60,52 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
       vscode.TreeItemCollapsibleState.None,
       [...(lookup || [])]
     )
+  }
+
+  private getReposTree(element?: Repository): Repository[] {
+    let values: Repository[] = []
+    if (!element) {
+      this._store.updateTree()
+      values.push(...this.processNode(this._store.tree, []))
+    } else {
+      let ref = this._store.tree
+      let lookup = element?.lookup || []
+      for (const key of lookup) {
+        ref = ref[key]
+      }
+      if (Array.isArray(ref)) {
+        values = ref.map((v) => this.repoFromValue(lookup, v))
+      } else {
+        values.push(...this.processNode(ref, lookup))
+      }
+    }
+    return values
+  }
+
+  private processNode(
+    node: Record<string, any>,
+    lookup: string[]
+  ): Repository[] {
+    let values: Repository[] = []
+    // append direct descendants
+    if (Array.isArray(node._children) && node._children.length) {
+      values.push(
+        ...node._children.map((v: any) => this.repoFromValue(lookup, v))
+      )
+    }
+    // append descendants with keys
+    values.push(
+      ...Object.keys(node)
+        .filter((k) => k !== '_children')
+        .map(
+          (k) =>
+            new Repository(k, k, vscode.TreeItemCollapsibleState.Expanded, [
+              ...(lookup || []),
+              k,
+            ])
+        )
+    )
+    return values
   }
 
   private getRepositories(): Repository[] {
