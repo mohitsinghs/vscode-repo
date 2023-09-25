@@ -6,6 +6,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- Move `Open in New Window` to overflow menu
+- Add `Open in Terminal` for repository to quickly access terminal
+
 ## 0.7.3
 
 - Use implicit activation
