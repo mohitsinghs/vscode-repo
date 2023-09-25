@@ -81,6 +81,19 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   )
 
+  vscode.commands.registerCommand(
+    '_repo.openTerminal',
+    async (repo: Repository) => {
+      if (repo) {
+        vscode.window
+          .createTerminal({
+            cwd: vscode.Uri.parse(repo.location),
+          })
+          .show()
+      }
+    }
+  )
+
   vscode.commands.registerCommand('_repo.listRepos', async () => {
     const repo = await repositoryPicker.pickRepositories()
     if (repo) {

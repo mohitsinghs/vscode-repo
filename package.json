@@ -117,6 +117,11 @@
         "command": "_repo.openInNewWindow",
         "title": "Open in New Window",
         "icon": "$(multiple-windows)"
+      },
+      {
+        "command": "_repo.openTerminal",
+        "title": "Open in Terminal",
+        "icon": "$(terminal)"
       }
     ],
     "menus": {
@@ -135,6 +140,10 @@
         },
         {
           "command": "_repo.asList",
+          "when": "false"
+        },
+        {
+          "command": "_repo.openTerminal",
           "when": "false"
         }
       ],
@@ -164,7 +173,12 @@
         {
           "command": "_repo.openInNewWindow",
           "when": "view == 'repositories' && viewItem == 'repository'",
-          "group": "inline"
+          "group": "navigation"
+        },
+        {
+          "command": "_repo.openTerminal",
+          "when": "view == 'repositories' && viewItem == 'repository'",
+          "group": "navigation"
         }
       ]
     }
