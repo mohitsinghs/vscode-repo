@@ -46,9 +46,8 @@
 
 The extension is available on all major platforms, including Windows, macOS, and Linux. However, while it's generally compatible with these platforms, please note that testing is more extensive on some platforms than others. If you encounter any issues on your specific platform, feel free to raise an issue with relevant details.
 
-### WSL Support
-
-If you are using Windows Subsystem for Linux (WSL), please be aware that full support might be limited. In WSL, the [repo](https://github.com/mohitsinghs/repo) cli needs to be installed, and it may not work correctly if the PATH is not inherited. You can set `repositories.preferBundled` to `false` to always use the binary from the PATH instead of bundled one. For more information, refer to mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4.
+> [!WARNING]
+> If you are using **Windows Subsystem for Linux (WSL)**, please be aware that full support might be limited. In WSL, the [repo](https://github.com/mohitsinghs/repo) cli needs to be installed, and it may not work correctly if the PATH is not inherited. You can set `repositories.preferBundled` to `false` to always use the binary from the PATH instead of bundled one. For more information, refer to mohitsinghs/vscode-repo#2 and mohitsinghs/vscode-repo#4.
 
 ## Inspirations
 
