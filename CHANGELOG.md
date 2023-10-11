@@ -6,6 +6,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.7.4
+
 - Move `Open in New Window` to overflow menu
 - Add `Open in Terminal` for repository to quickly access terminal
 
