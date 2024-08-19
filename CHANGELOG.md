@@ -6,6 +6,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 0.8.0
+
+- Folder icons are now based on providers. Currently supported providers are GitHub, GitLab, Bitbuket and Azure DevOps.
+- Added new `repoicons` for folder icons.
+- Added roots configuration from VSCode. This one overrides global yaml config.
+- Added branch information for repositories.
+
 ## 0.7.4
 
 - Move `Open in New Window` to overflow menu
