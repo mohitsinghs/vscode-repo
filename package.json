@@ -255,6 +255,7 @@
     "@types/node": "20.x",
     "@types/vscode": "^1.74.0",
     "esbuild": "^0.19.3",
+    "rimraf": "^6.0.1",
     "typescript": "^5.2.2"
   }
 }
