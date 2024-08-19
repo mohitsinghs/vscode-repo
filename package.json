@@ -188,15 +188,13 @@
     "esbuild-base": "rimraf out && esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
     "build": "npm run -S esbuild-base -- --sourcemap",
     "watch": "npm run -S esbuild-base -- --sourcemap --watch",
-    "test": "eslint src --ext ts && tsc --noEmit"
+    "test": "biome lint && tsc --noEmit"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@types/node": "18.x",
     "@types/vscode": "^1.74.0",
-    "@typescript-eslint/eslint-plugin": "^6.7.2",
-    "@typescript-eslint/parser": "^6.7.2",
     "esbuild": "^0.19.3",
-    "eslint": "^8.14.0",
     "typescript": "^5.2.2"
   }
 }
