@@ -1,12 +1,13 @@
 import * as vscode from 'vscode'
 import { RepositoryStore } from './store'
+import { getIconByProvider } from './utils'
 
 class Repository implements vscode.QuickPickItem {
   label: string
   description: string
 
   constructor(label: string, location: string) {
-    this.label = `$(repo) ${label}`
+    this.label = label
     this.description = location
   }
 }
@@ -15,6 +16,10 @@ export class RepositoryPicker {
   private _store: RepositoryStore
 
   constructor(store: RepositoryStore) {
+    this._store = store
+  }
+
+  updateStore(store: RepositoryStore) {
     this._store = store
   }
 
@@ -32,8 +37,12 @@ export class RepositoryPicker {
 
         const input = vscode.window.createQuickPick<Repository>()
         input.placeholder = 'Search repositories...'
-        input.items = Object.entries(repos).map(
-          ([label, location]) => new Repository(label, location)
+        input.items = Object.values(repos).map(
+          (value) =>
+            new Repository(
+              `$(${getIconByProvider(value.provider)}) ${value.label}`,
+              value.location
+            )
         )
         input.onDidChangeSelection((repos) => {
           const repo = repos[0]
@@ -49,7 +58,9 @@ export class RepositoryPicker {
         input.show()
       })
     } finally {
-      disposables.forEach((d) => d.dispose())
+      for (const disposable of disposables) {
+        disposable.dispose()
+      }
     }
   }
 }

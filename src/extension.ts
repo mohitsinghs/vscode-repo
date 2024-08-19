@@ -7,7 +7,7 @@ import {
   ViewMode,
 } from './repositories'
 import { showRepositoryStatus } from './statusbar'
-import { RepositoryStore } from './store'
+import { RepositoryStore, type Root } from './store'
 import { getBinaryPath, getConfigPath, openFolder } from './utils'
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -15,13 +15,19 @@ export async function activate(context: vscode.ExtensionContext) {
     await openFolder(node)
   })
 
-  let treeAsDefault = vscode.workspace
+  const treeAsDefault = vscode.workspace
     .getConfiguration('repositories')
     .get('treeAsDefault') as boolean
 
-  let sortByName = vscode.workspace
+  const sortByName = vscode.workspace
     .getConfiguration('repositories')
     .get('sortByName') as boolean
+
+  let roots: Root[] = JSON.parse(
+    JSON.stringify(
+      vscode.workspace.getConfiguration('repositories').get('roots') as string
+    )
+  )
 
   vscode.commands.executeCommand(
     'setContext',
@@ -32,7 +38,7 @@ export async function activate(context: vscode.ExtensionContext) {
   const repoPath = await getBinaryPath(context)
   if (repoPath === '') return
 
-  const store = new RepositoryStore(repoPath)
+  let store = new RepositoryStore(repoPath, roots)
   const config: RepositoryConfig = {
     mode: treeAsDefault ? ViewMode.tree : ViewMode.list,
     sort: sortByName,
@@ -47,6 +53,20 @@ export async function activate(context: vscode.ExtensionContext) {
         .getConfiguration('repositories')
         .get('sortByName') as boolean
       repositoryProvider.refresh()
+    }
+    if (e.affectsConfiguration('repositories.roots')) {
+      roots = JSON.parse(
+        JSON.stringify(
+          vscode.workspace
+            .getConfiguration('repositories')
+            .get('roots') as string
+        )
+      )
+      store = new RepositoryStore(repoPath, roots)
+      repositoryProvider.updateStore(store)
+      repositoryPicker.updateStore(store)
+      repositoryProvider.refresh()
+      showRepositoryStatus(store)
     }
   })
 

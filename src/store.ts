@@ -1,18 +1,38 @@
 import { execSync } from 'child_process'
 import * as vscode from 'vscode'
 
+export interface Root {
+  path: string
+  depth?: number
+}
+
+export interface RepoValue {
+  label: string
+  location: string
+  provider: string
+  branch: string
+}
+
 export class RepositoryStore {
   private _repoPath: string
-  list: Record<string, string> = {}
+  private _roots?: Root[]
+  list: Record<string, RepoValue> = {}
   tree: Record<string, any> = {}
 
-  constructor(repoPath: string) {
+  constructor(repoPath: string, roots?: Root[]) {
     this._repoPath = repoPath
+    this._roots = roots
   }
 
   updateList() {
     try {
-      const repoData = execSync(`${this._repoPath} cmp -j`)
+      const repoData = execSync(
+        this._roots?.length
+          ? `${this._repoPath} cmp -j -c '${JSON.stringify({
+              roots: this._roots,
+            })}'`
+          : `${this._repoPath} cmp -j`
+      )
       this.list = JSON.parse(repoData.toString('utf-8'))
       return this.list
     } catch (error) {
@@ -24,7 +44,14 @@ export class RepositoryStore {
 
   updateTree() {
     try {
-      const repoData = execSync(`${this._repoPath} cmp -t`)
+      const repoData = execSync(
+        this._roots?.length
+          ? `${this._repoPath} cmp -t -c '${JSON.stringify({
+              roots: this._roots,
+            })}'`
+          : `${this._repoPath} cmp -t`
+      )
+
       this.tree = JSON.parse(repoData.toString('utf-8'))
       return this.tree
     } catch (error) {
@@ -39,10 +66,9 @@ export class RepositoryStore {
   }
 
   findByPath(p: string) {
-    const result = Object.entries(this.list).find(
-      ([name, location]) =>
-        location.toLocaleLowerCase() === p.toLocaleLowerCase()
+    const result = Object.values(this.list).find(
+      (value) => value.location.toLocaleLowerCase() === p.toLocaleLowerCase()
     )
-    if (result) return result[0]
+    if (result) return result
   }
 }

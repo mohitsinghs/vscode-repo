@@ -63,6 +63,29 @@
           "type": "boolean",
           "default": true,
           "description": "If enabled, bundled binary will be preferred otherwise binary from the PATH will be used."
+        },
+        "repositories.roots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "description": "root path to scan repositories",
+                "type": "string"
+              },
+              "depth": {
+                "description": "maximum depth to scan under given root. default : 0 is unlimited.",
+                "type": "number",
+                "default": 0
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "additionalProperties": false
+          },
+          "default": [],
+          "description": "Roots to be used for scanning repositories"
         }
       }
     },
@@ -181,6 +204,43 @@
           "group": "navigation"
         }
       ]
+    },
+    "icons": {
+      "icon-github": {
+        "description": "GitHub",
+        "default": {
+          "fontPath": "./repoicons.woff",
+          "fontCharacter": "\\E001"
+        }
+      },
+      "icon-gitlab": {
+        "description": "GitLab",
+        "default": {
+          "fontPath": "./repoicons.woff",
+          "fontCharacter": "\\E002"
+        }
+      },
+      "icon-bitbucket": {
+        "description": "Bitbucket",
+        "default": {
+          "fontPath": "./repoicons.woff",
+          "fontCharacter": "\\E003"
+        }
+      },
+      "icon-azure": {
+        "description": "Azure Devops",
+        "default": {
+          "fontPath": "./repoicons.woff",
+          "fontCharacter": "\\E004"
+        }
+      },
+      "icon-git": {
+        "description": "Git",
+        "default": {
+          "fontPath": "./repoicons.woff",
+          "fontCharacter": "\\E005"
+        }
+      }
     }
   },
   "scripts": {

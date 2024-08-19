@@ -35,6 +35,21 @@ async function fileExits(uri: vscode.Uri): Promise<boolean> {
   }
 }
 
+export function getIconByProvider(provider: string): string {
+  switch (provider) {
+    case 'github':
+      return 'icon-github'
+    case 'gitlab':
+      return 'icon-gitlab'
+    case 'bitbucket':
+      return 'icon-bitbucket'
+    case 'azure':
+      return 'icon-azure'
+    default:
+      return 'icon-git'
+  }
+}
+
 export async function getBinaryPath(
   context: vscode.ExtensionContext,
   executableName = 'repo'
@@ -70,7 +85,7 @@ export async function getConfigPath(
 ): Promise<vscode.Uri | undefined> {
   const home = os.homedir()
   const configFile = 'repo.yml'
-  let configPath
+  let configPath: string | undefined
   if (isWindows()) {
     configPath = path.join(
       process.env.APPDATA || path.join(home, 'AppData', 'Roaming'),
@@ -86,7 +101,7 @@ export async function getConfigPath(
   }
 
   if (configPath) {
-    let cfgUri = vscode.Uri.file(configPath)
+    const cfgUri = vscode.Uri.file(configPath)
     if (!(await fileExits(cfgUri))) {
       try {
         execSync(`${repoPath} init`)
@@ -99,7 +114,7 @@ export async function getConfigPath(
   }
 
   vscode.window.showWarningMessage(
-    `Your platform is unsupported, Please [raise an issue](https://github.com/mohitsinghs/vscode-repo/issues/new).`,
+    'Your platform is unsupported, Please [raise an issue](https://github.com/mohitsinghs/vscode-repo/issues/new).',
     'Got it'
   )
   return
@@ -118,15 +133,11 @@ export function getCurrentPath() {
 export function buildUri(node: string | any): vscode.Uri {
   if (typeof node === 'string') {
     return vscode.Uri.file(node)
-  } else {
-    return vscode.Uri.file(node.command.arguments[0])
   }
+  return vscode.Uri.file(node.command.arguments[0])
 }
 
-export async function openFolder(
-  node: string | any,
-  newWindow: boolean = false
-) {
+export async function openFolder(node: string | any, newWindow = false) {
   const uri = buildUri(node)
   try {
     await vscode.commands.executeCommand('vscode.openFolder', uri, newWindow)

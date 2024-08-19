@@ -1,9 +1,10 @@
 import * as vscode from 'vscode'
-import { RepositoryStore } from './store'
+import { RepoValue, RepositoryStore } from './store'
+import { getIconByProvider } from './utils'
 
 export enum ViewMode {
-  tree,
-  list,
+  tree = 0,
+  list = 1,
 }
 
 export interface RepositoryConfig {
@@ -26,6 +27,11 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
     this._config = config
   }
 
+  updateStore(store: RepositoryStore) {
+    this._store = store
+    this.refresh()
+  }
+
   switchMode(mode: ViewMode) {
     this._config.mode = mode
     this.refresh()
@@ -40,25 +46,28 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
       const repos = this.getRepositories()
       if (repos.length) {
         return Promise.resolve(repos)
-      } else {
-        vscode.window.showInformationMessage('No repositories found')
-        return Promise.resolve([])
       }
-    } else {
-      let repos: Repository[] = this.getReposTree(element)
-      if (this._config.sort) {
-        repos.sort((a, b) => a.label.localeCompare(b.label))
-      }
-      return Promise.resolve(repos)
+      vscode.window.showInformationMessage('No repositories found')
+      return Promise.resolve([])
     }
+    const repos: Repository[] = this.getReposTree(element)
+    if (this._config.sort) {
+      repos.sort((a, b) => a.label.localeCompare(b.label))
+    }
+    return Promise.resolve(repos)
   }
 
-  private repoFromValue(lookup: string[] | undefined, v: any): Repository {
+  private repoFromValue(
+    lookup: string[] | undefined,
+    v: RepoValue
+  ): Repository {
     return new Repository(
       v.label,
       v.location,
       vscode.TreeItemCollapsibleState.None,
-      [...(lookup || [])]
+      [...(lookup || [])],
+      v.provider,
+      v.branch
     )
   }
 
@@ -69,7 +78,7 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
       values.push(...this.processNode(this._store.tree, []))
     } else {
       let ref = this._store.tree
-      let lookup = element?.lookup || []
+      const lookup = element?.lookup || []
       for (const key of lookup) {
         ref = ref[key]
       }
@@ -83,14 +92,14 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   }
 
   private processNode(
-    node: Record<string, any>,
+    node: Record<string, RepoValue>,
     lookup: string[]
   ): Repository[] {
-    let values: Repository[] = []
+    const values: Repository[] = []
     // append direct descendants
     if (Array.isArray(node._children) && node._children.length) {
       values.push(
-        ...node._children.map((v: any) => this.repoFromValue(lookup, v))
+        ...node._children.map((v: RepoValue) => this.repoFromValue(lookup, v))
       )
     }
     // append descendants with keys
@@ -111,10 +120,7 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
   private getRepositories(): Repository[] {
     this._store.updateList()
     const repos = this._store.list
-    return Object.entries(repos).map(
-      ([name, path]) =>
-        new Repository(name, path, vscode.TreeItemCollapsibleState.None)
-    )
+    return Object.values(repos).map((value) => this.repoFromValue([], value))
   }
 
   refresh() {
@@ -123,19 +129,29 @@ export class RepositoryProvider implements vscode.TreeDataProvider<Repository> {
 }
 
 export class Repository extends vscode.TreeItem {
-  public lookup: string[] | undefined
   constructor(
     public readonly label: string,
     public readonly location: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
-    lookup?: string[]
+    public readonly lookup?: string[] | undefined,
+    public readonly provider?: string | undefined,
+    public readonly branch?: string | undefined
   ) {
     super(label, collapsibleState)
     this.tooltip = `${this.location}`
     this.lookup = lookup
   }
+
+  description = this.branch ?? ''
+
   isFolder = this.label === this.location
-  iconPath = new vscode.ThemeIcon(this.isFolder ? 'folder' : 'repo')
+  iconPath = new vscode.ThemeIcon(
+    this.isFolder
+      ? 'folder'
+      : this.provider
+      ? getIconByProvider(this.provider)
+      : 'repo'
+  )
   command = this.isFolder
     ? undefined
     : {

@@ -1,6 +1,7 @@
+import * as path from 'path'
 import * as vscode from 'vscode'
 import { RepositoryStore } from './store'
-import { getCurrentPath } from './utils'
+import { getCurrentPath, getIconByProvider } from './utils'
 
 let status: vscode.StatusBarItem
 
@@ -25,12 +26,16 @@ export function showRepositoryStatus(store: RepositoryStore) {
   }
 
   status.tooltip = rootPath
-  status.text = '$(repo) '
   status.command = '_repo.listRepos'
 
-  const repoName = store.findByPath(rootPath)
-  if (repoName) {
-    status.text += repoName
-    status.show()
+  const repo = store.findByPath(rootPath)
+
+  if (repo) {
+    const provider = getIconByProvider(repo.provider)
+    status.text = `$(${provider}) ${repo.label}`
+  } else {
+    console.log({ repo, rootPath, store: store.list })
+    status.text = `$(folder) ${path.basename(rootPath)}`
   }
+  status.show()
 }
