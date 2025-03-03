@@ -27,7 +27,7 @@ You can download the `.vsix` file for your platform from the [Releases](https://
 
 ### Manual Installation
 
-1. Download the latest `.vsix` file from [Releases](https://github.com/mohitsinghs/repo/releases).
+1. Download the latest `.vsix` file from [Releases](https://github.com/mohitsinghs/vscode-repo/releases).
 2. Open VS Code and go to `Extensions` (`Ctrl+Shift+X`).
 3. Click on the `...` menu (top-right corner) and select `Install from VSIX...`.
 4. Select the downloaded `.vsix` file and install.
