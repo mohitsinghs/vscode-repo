@@ -10,9 +10,6 @@
   <a href="https://github.com/mohitsinghs/vscode-repo/blob/main/LICENSE">
     <img alt="LICENSE" src="https://img.shields.io/github/license/mohitsinghs/vscode-repo?style=flat-square" />
   </a>
-  <img alt="version" src="https://img.shields.io/visual-studio-marketplace/v/mohitsingh.repo?style=flat-square" />
-  <img alt="installs" src="https://img.shields.io/visual-studio-marketplace/i/mohitsingh.repo?style=flat-square" />
-  <img alt="downloads" src="https://img.shields.io/visual-studio-marketplace/d/mohitsingh.repo?style=flat-square" />
 </p>
 <br />
 
@@ -23,6 +20,20 @@
 - **View Options**: Choose between tree or list view.
 - **Status Bar Integration**: See the current repository in the status bar.
 - **Gitignore Friendly**: Respects your `.gitignore` settings.
+
+## Installation
+
+You can download the `.vsix` file for your platform from the [Releases](https://github.com/mohitsinghs/vscode-repo/releases) page and install it manually.
+
+### Manual Installation
+
+1. Download the latest `.vsix` file from [Releases](https://github.com/mohitsinghs/repo/releases).
+2. Open VS Code and go to `Extensions` (`Ctrl+Shift+X`).
+3. Click on the `...` menu (top-right corner) and select `Install from VSIX...`.
+4. Select the downloaded `.vsix` file and install.
+
+> [!WARNING]
+> This extension is not available on the Visual Studio Marketplace. @microsoft took inexplicable action against my account, and after repeatedly hitting a non-responsive wall, I chose to delete it rather than waste more time fighting bureaucracy.
 
 ## Demo
 

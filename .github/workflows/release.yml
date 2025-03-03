@@ -28,8 +28,3 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/repo-*.vsix
-
-      - name: Publish Extension
-        run: npx vsce publish -p $VSCE_TOKEN -i ./dist/repo-*.vsix --noVerify
-        env:
-          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
