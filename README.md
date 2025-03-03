@@ -33,7 +33,7 @@ You can download the `.vsix` file for your platform from the [Releases](https://
 4. Select the downloaded `.vsix` file and install.
 
 > [!WARNING]
-> This extension is not available on the Visual Studio Marketplace. @microsoft took inexplicable action against my account, and after repeatedly hitting a non-responsive wall, I chose to delete it rather than waste more time fighting bureaucracy.
+> This extension is not available on the Visual Studio Marketplace. [@microsoft](https://github.com/microsoft) took inexplicable action against my account, and after repeatedly hitting a non-responsive wall, I chose to delete it rather than waste more time fighting bureaucracy.
 
 ## Demo
 
